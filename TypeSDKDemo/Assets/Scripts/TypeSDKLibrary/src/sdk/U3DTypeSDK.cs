@@ -131,6 +131,9 @@ public class U3DTypeSDK :
         Debug.Log("do YSDK login ");
         bonjour.ShowLogin();
         Debug.Log("do YSDK login finisth");
+
+
+
     }
 	//登出平台
 	public  void Logout()
