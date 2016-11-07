@@ -57,7 +57,7 @@ public class U3DTypeBaseData
     {
         return _attMap;
     }
-    public void SetData(string attName, GDEPushRepeatIntervalType enumValue)
+    public void SetData(string attName, TypePushRepeatIntervalType enumValue)
     {
         this.SetData(attName, (int)enumValue);
     }
