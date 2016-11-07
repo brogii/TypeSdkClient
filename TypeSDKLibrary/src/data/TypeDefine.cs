@@ -11,7 +11,7 @@ using System;
 
 
 
-public  enum GDEPushRepeatIntervalType
+public  enum TypePushRepeatIntervalType
 {
 	kYEAR=1,	//年
 	kMONTH=2,	//月
