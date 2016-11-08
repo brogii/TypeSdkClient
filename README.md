@@ -14,6 +14,6 @@ library为抽象层主体，直接添加进项目即可，请一定不要修改�
 
 <p>支持渠道列表：<a href="http://www.typesdk.com/#channel">支持列表</a></p>
 
-<p>DEMO演示地址：<a href="http://demo.typesdk.com:56789">演示地址</a>  （用户名和密码：demo@typesdk.com/123.com）</p>
+<p>DEMO演示地址：<a href="http://114.55.175.18:56789">演示地址</a>  （用户名和密码：demo@typesdk.com/123.com）</p>
 
 需要了解更多的信息请访问官方网站
