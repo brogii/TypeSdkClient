@@ -40,7 +40,7 @@
     <span style="font-family: 黑体">联系QQ：1771930259</span>
 </p>
 <p style="margin: 0 0 16px">
-    <span style="font-family: 黑体">官方网站：</span><a href="http://114.215.254.106/"><span style="font-family:黑体;color:black">http://www.typesdk.com</span></a>
+    <span style="font-family: 黑体">官方网站：</span><a href="http://www.typesdk.com"><span style="font-family:黑体;color:black">http://www.typesdk.com</span></a>
 </p>
 <p style="margin: 0 0 16px">
     <span style="font-family: 黑体">支持渠道列表：</span><a href="http://114.215.254.106/#channel"><span style="font-family:黑体;color:black">支持列表</span></a>
