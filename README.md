@@ -52,7 +52,11 @@
     <span style="font-family: 黑体">游戏服务器接入文档：</span><a href="http://www.typesdk.com/docs/%E6%9C%8D%E5%8A%A1%E7%AB%AF/"><span style="font-family:黑体;color:black">游戏服务器接入文档</span></a>
 </p>
 <p style="margin: 0 0 16px">
+<<<<<<< HEAD
     <span style="font-family: 黑体">DEMO演示地址：</span><a href="http://demo.typesdk.com:56789/"><span style="font-family:黑体;color:black">演示地址</span></a><span style="font-family: Calibri, sans-serif">&nbsp;</span><span style="font-family: 黑体">（用户名和密码：</span><a href="demo@typesdk.com/123.com"><span style="font-family:黑体;color:black">demo@typesdk.com/123.com</span></a><span style="font-family: 黑体">）</span>
+=======
+    <span style="font-family: 黑体">DEMO演示地址：</span><a href="http://demo.typesdk.com:56789/"><span style="font-family:黑体;color:black">演示地址</span></a><span style="font-family: Calibri, sans-serif">&nbsp;</span><span style="font-family: 黑体">（用户名和密码：</span><a href="mailto:demo@typesdk.com/123.com"><span style="font-family:黑体;color:black">demo@typesdk.com/123.com</span></a><span style="font-family: 黑体">）</span>
+>>>>>>> 9873ded804251c921ca5ca0a03c7b149146d77b0
 </p>
 <p></p>
 <hr/>
