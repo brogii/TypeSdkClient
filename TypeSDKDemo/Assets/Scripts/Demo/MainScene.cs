@@ -574,6 +574,9 @@ public class MainScene : MonoBehaviour
     {
         CancelInvoke("RepeatRequestIntoAccountFunction");
         Debug.Log("CancelInvoke");
+
+		U3DTypeSDK.Instance.UpdatePlayerInfo();
+
     }
     void RepeatRequestIntoAccountFunction()
     {
@@ -614,7 +617,7 @@ public class MainScene : MonoBehaviour
             U3DTypeBaseData userinfo = U3DTypeSDK.Instance.GetUserData();
             userinfo.SetData(U3DTypeAttName.USER_ID, result.GetData("uid"));
 			userinfo.SetData(U3DTypeAttName.USER_TOKEN, result.GetData("token"));
-            U3DTypeSDK.Instance.UpdatePlayerInfo();
+
             ActionGetAccount();
         }
 		current_ui_model = UI_MENU; // go to menu 

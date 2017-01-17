@@ -105,9 +105,9 @@ namespace TypeDataModel
 	}
 	public class ServerDataExchange : MonoBehaviour
     {
-		private const string REQUEST_ADDRESS = "http://120.27.201.22:40001/game";
+//		private const string REQUEST_ADDRESS = "http://120.27.201.22:40001/game";
 		
-//		private const string REQUEST_ADDRESS = "http://120.27.137.35:40001/game";
+		private const string REQUEST_ADDRESS = "http://demo.typesdk.com:40001/game";
 //		private const string REQUEST_ADDRESS = "http://120.27.137.35:40001/game";
 		public void RequestLogin(MonoBehaviour mono, string  data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
 		{
