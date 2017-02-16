@@ -5,7 +5,7 @@ using System.Collections;
  * 具体Ａｎｄｒｏｉｄ、ＩＯＳ有相关实现，接入方无需过多关注，如有疑问请联系提供方。
  * 
  */
-#if UNITY_STANDALONE_WIN||UNITY_EDITOR
+#if UNITY_STANDALONE_WIN||UNITY_EDITOR||UNITY_WEBPLAYER
 public class Bonjour_Type_Common_Win : Bonjour_Type_Base
 {
 

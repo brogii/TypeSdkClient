@@ -118,10 +118,10 @@ public class U3DTypeBaseData
     public bool GetBool(string attName)
     {
         int value = GetInt(attName);
-        if (0 == value)
-            return false;
+        if (1 == value)
+			return true;
         else
-            return true;
+			return false;
     }
     public string DataToString()
     {
@@ -140,7 +140,7 @@ public class U3DTypeBaseData
 
         _attMap = MiniJSON.Json.Deserialize(_in_data) as Dictionary<string, object>;
 
-        System.Console.Write(_attMap.ToString());
+//        System.Console.Write(_attMap.ToString());
     }
     public void copyData(U3DTypeBaseData _in_data)
     {

@@ -105,47 +105,63 @@ namespace TypeDataModel
 	}
 	public class ServerDataExchange : MonoBehaviour
     {
-//		private const string REQUEST_ADDRESS = "http://120.27.201.22:40001/game";
+//		private const string REQUEST_ADDRESS = "http://192.168.199.154:40001/game";
 		
 		private const string REQUEST_ADDRESS = "http://demo.typesdk.com:40001/game";
 //		private const string REQUEST_ADDRESS = "http://120.27.137.35:40001/game";
-		public void RequestLogin(MonoBehaviour mono, string  data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
+		public void RequestLogin(MonoBehaviour mono, U3DTypeBaseData _in_data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
 		{
 			string url = REQUEST_ADDRESS+"/login";
 
 //			Debug.Log("request baidu" + url);
 //			mono.StartCoroutine( HttpGet("http://www.baidu.com", cbkdelegate, crossData) );
 
-
+			Dictionary<string,object> data = changeBaseDataToHttpPostData (_in_data);
 			Debug.Log("RequestLogin " + url+data.ToString());
-			mono.StartCoroutine( HttpGet(url+data, cbkdelegate, crossData) );
+			mono.StartCoroutine( HttpPost(url,data, cbkdelegate, crossData) );
 
 		}
-		public void RequestCreateOrder(MonoBehaviour mono, string data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
+		public void RequestCreateOrder(MonoBehaviour mono, U3DTypeBaseData _in_data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
 		{
 			string url = REQUEST_ADDRESS+"/create_order";
             Debug.Log("RequestCreateOrder " + url);
-            mono.StartCoroutine(HttpGet(url+ data, cbkdelegate, crossData));
+
+			Dictionary<string,object> data = changeBaseDataToHttpPostData (_in_data);
+			Debug.Log("RequestLogin " + url+data.ToString());
+
+			mono.StartCoroutine(HttpPost(url ,data, cbkdelegate, crossData));
 		}
-		public void RequestClinetPayCancel(MonoBehaviour mono, string data, TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
+		public void RequestClinetPayCancel(MonoBehaviour mono, U3DTypeBaseData _in_data, TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
 		{
 			string url = REQUEST_ADDRESS+"/client_pay_cancel";
-            mono.StartCoroutine(HttpGet(url + data, cbkdelegate, crossData));
+			Dictionary<string,object> data = changeBaseDataToHttpPostData (_in_data);
+			Debug.Log("RequestLogin " + url+data.ToString());
+
+			mono.StartCoroutine(HttpPost(url , data, cbkdelegate, crossData));
         }
-		public void RequestClientPayComplete(MonoBehaviour mono, string data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
+		public void RequestClientPayComplete(MonoBehaviour mono, U3DTypeBaseData _in_data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
 		{
 			string url = REQUEST_ADDRESS+"/client_pay_complete";
-            mono.StartCoroutine(HttpGet(url + data, cbkdelegate, crossData));
+			Dictionary<string,object> data = changeBaseDataToHttpPostData (_in_data);
+			Debug.Log("RequestLogin " + url+data.ToString());
+
+			mono.StartCoroutine(HttpPost(url , data, cbkdelegate, crossData));
         }
-		public void RequestGetAccount(MonoBehaviour mono, string data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
+		public void RequestGetAccount(MonoBehaviour mono, U3DTypeBaseData _in_data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
 		{
 			string url = REQUEST_ADDRESS+"/get_account";
-            mono.StartCoroutine(HttpGet(url + data, cbkdelegate, crossData));
+			Dictionary<string,object> data = changeBaseDataToHttpPostData (_in_data);
+			Debug.Log("RequestLogin " + url+data.ToString());
+
+			mono.StartCoroutine(HttpPost(url , data, cbkdelegate, crossData));
         }
-		public void RequestCreateAccount(MonoBehaviour mono, string data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
+		public void RequestCreateAccount(MonoBehaviour mono, U3DTypeBaseData _in_data,TypeHttpCBKDelegate cbkdelegate,UnityEngine.Object crossData)
 		{
 			string url = REQUEST_ADDRESS+"/create_account";
-            mono.StartCoroutine(HttpGet(url + data, cbkdelegate, crossData));
+			Dictionary<string,object> data = changeBaseDataToHttpPostData (_in_data);
+			Debug.Log("RequestLogin " + url+data.ToString());
+
+			mono.StartCoroutine(HttpPost(url , data, cbkdelegate, crossData));
         }
 
 
@@ -174,7 +190,38 @@ namespace TypeDataModel
 
         }
 
+		Dictionary<string,object> changeBaseDataToHttpPostData(U3DTypeBaseData _in_data)
+		{
+			Dictionary<string, object> attMap = _in_data.attMap ();
+			string outString  = "";
+//			foreach (string key in attMap.Keys)
+//			{
+//				if ("data_ins_key" == key)
+//					continue;
+//
+//				outString += "&"+key+"="+attMap[key].ToString();
+//			}
+//			outString = "?" + outString.Substring (1)+"&sign=sign" ;
+			attMap.Add ("sign", "sign");
+			return attMap;
 
+		}
+
+		string changeBaseDataToHttpGetData(U3DTypeBaseData _in_data)
+		{
+			Dictionary<string, object> attMap = _in_data.attMap ();
+			string outString  = "";
+			foreach (string key in attMap.Keys)
+			{
+				if ("data_ins_key" == key)
+					continue;
+
+				outString += "&"+key+"="+attMap[key].ToString();
+			}
+			outString = "?" + outString.Substring (1)+"&sign=sign" ;
+			return outString;
+
+		}
 		//GET请求
 		public IEnumerator HttpGet(string url, TypeHttpCBKDelegate cbkFunc, UnityEngine.Object crossData )
 		{

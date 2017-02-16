@@ -42,7 +42,7 @@ public class MainScene : MonoBehaviour
 //        input_str_order_pirce = "商品价格（分）";
 
         localPayData = new U3DTypeBaseData(); ;
-        localUserData = new U3DTypeBaseData();
+		localUserData = U3DTypeSDK.Instance.GetUserData ();
 		datalock_pay_progress = 0;
         userBalance = 0;
 		att_fontsize = 10;
@@ -353,10 +353,10 @@ public class MainScene : MonoBehaviour
         baseData.SetData("cid", platform.GetData(U3DTypeAttName.CHANNEL_ID));
 //        baseData.freshSign();
 
-		string dataArr = changeBaseDataToHttpData (baseData);;
-        DataProxy.Ins.ServerLogic.RequestGetAccount(this, dataArr, ServerCBK_getAccount, null);
+//		string dataArr = changeBaseDataToHttpData (baseData);;
+		DataProxy.Ins.ServerLogic.RequestGetAccount(this, baseData, ServerCBK_getAccount, null);
     }
-    void AcitonCreatAccount()
+    	void AcitonCreatAccount()
     {
         U3DTypeBaseData userInfo = DataProxy.Ins.LocalLogic.userInfo();
         string userID = userInfo.GetData(U3DTypeAttName.USER_ID);
@@ -367,8 +367,8 @@ public class MainScene : MonoBehaviour
         baseData.SetData("cid", platform.GetData(U3DTypeAttName.CHANNEL_ID));
 //        baseData.freshSign();
 
-		string dataArr = changeBaseDataToHttpData (baseData);
-        DataProxy.Ins.ServerLogic.RequestCreateAccount(this, dataArr, ServerCBK_createAccount, null);
+//		string dataArr = changeBaseDataToHttpData (baseData);
+		DataProxy.Ins.ServerLogic.RequestCreateAccount(this, baseData, ServerCBK_createAccount, null);
     }
 	void ActionCreatePayOrder(string _in_item_id,string _in_item_price)
 	{
@@ -388,7 +388,7 @@ public class MainScene : MonoBehaviour
 		baseData.SetData("cid", platform.GetData(U3DTypeAttName.CHANNEL_ID));
 //		baseData.freshSign();
 		
-		string dataArr = changeBaseDataToHttpData (baseData);
+//		string dataArr = changeBaseDataToHttpData (baseData);
 		
 		localPayData.SetData(U3DTypeAttName.USER_ID, userID);
 		localPayData.SetData(U3DTypeAttName.ITEM_SERVER_ID, _in_item_id);
@@ -396,16 +396,17 @@ public class MainScene : MonoBehaviour
 		
 		Debug.Log("local pay data change to "+ localPayData.DataToString());
 		Debug.Log("login sent to server data " + baseData.DataToString());
-		DataProxy.Ins.ServerLogic.RequestCreateOrder(this, dataArr, ServerCBK_createOrder, null);
+		DataProxy.Ins.ServerLogic.RequestCreateOrder(this, baseData, ServerCBK_createOrder, null);
 
 	}
 	void ActionPayCurrentOrder()
 	{
-		if (0 != datalock_pay_progress) 
-		{
-			Debug.Log("wait pay finish");
-			return;
-		}
+//		if (0 != datalock_pay_progress) 
+//		{
+//			Debug.Log("wait pay finish");en 
+
+//			return;
+//		}
 		U3DTypeBaseData userInfo = U3DTypeSDK.Instance.GetUserData();
 		U3DTypeBaseData payData = localPayData;
 		//用户ID，渠道返回，没有填空
@@ -420,8 +421,9 @@ public class MainScene : MonoBehaviour
 		
 		//所在服务器名字（如果没有填“sever_name”）
 		payData.SetData(U3DTypeAttName.SERVER_NAME, "安卓一区");
+		//所在服务器数字标记（如果没有填“1”）
+		payData.SetData(U3DTypeAttName.SERVER_ID, "1");
 		//内部订单号（如果没有填“0”）
-		
 		//商品在渠道上的id（如果没有填“0”）如果大于0 认为是购买商品 
 		//has setted by function:ActionCreate ActionCreatePayOrder
 		
@@ -437,7 +439,7 @@ public class MainScene : MonoBehaviour
 		payData.SetData(U3DTypeAttName.USER_ID,userInfo.GetData(U3DTypeAttName.USER_ID));
 		U3DTypeSDK.Instance.PayItem(payData);
 
-		datalock_pay_progress = 1;
+//		datalock_pay_progress = 1;
 
 	}
 	void ActionKeyBoardEvent()
@@ -466,21 +468,21 @@ public class MainScene : MonoBehaviour
 		}
 	}
 
-	string changeBaseDataToHttpData(U3DTypeBaseData _in_data)
-	{
-		Dictionary<string, object> attMap = _in_data.attMap ();
-		string outString  = "";
-		foreach (string key in attMap.Keys)
-		{
-			if ("data_ins_key" == key)
-				continue;
-			
-			outString += "&"+key+"="+attMap[key].ToString();
-		}
-		outString = "?" + outString.Substring (1)+"&sign=sign" ;
-		return outString;
-
-	}
+//	string changeBaseDataToHttpData(U3DTypeBaseData _in_data)
+//	{
+//		Dictionary<string, object> attMap = _in_data.attMap ();
+//		string outString  = "";
+//		foreach (string key in attMap.Keys)
+//		{
+//			if ("data_ins_key" == key)
+//				continue;
+//			
+//			outString += "&"+key+"="+attMap[key].ToString();
+//		}
+//		outString = "?" + outString.Substring (1)+"&sign=sign" ;
+//		return outString;
+//
+//	}
 
 	//
     //cbk functions
@@ -512,10 +514,10 @@ public class MainScene : MonoBehaviour
 		baseData.SetData("cid",platform.GetData(U3DTypeAttName.CHANNEL_ID));
 //		baseData.SetData ("sign", userID + "|" + userToken + "|" + ""+"|"+platform.GetData(U3DTypeAttName.CHANNEL_ID));
 
-		string dataArr = changeBaseDataToHttpData (baseData);
-		Debug.Log ("login sent to server data " + dataArr);
+//		string dataArr = changeBaseDataToHttpData (baseData);
+//		Debug.Log ("login sent to server data " + dataArr);
 
-		DataProxy.Ins.ServerLogic.RequestLogin (this,dataArr, ServerCBK_login, null);
+		DataProxy.Ins.ServerLogic.RequestLogin (this,baseData, ServerCBK_login, null);
         //send user info to server and exchange playerinfo;
     }
     void ReloginResult(U3DTypeEvent evt)
@@ -575,7 +577,7 @@ public class MainScene : MonoBehaviour
         CancelInvoke("RepeatRequestIntoAccountFunction");
         Debug.Log("CancelInvoke");
 
-		U3DTypeSDK.Instance.UpdatePlayerInfo();
+
 
     }
     void RepeatRequestIntoAccountFunction()
@@ -625,16 +627,24 @@ public class MainScene : MonoBehaviour
 	}
     void ServerCBK_getAccount(string data, UnityEngine.Object crossData)
     {
+		Debug.Log("ServerCBK_getAccount is :"+ data);
         U3DTypeBaseData result = new U3DTypeBaseData();
         result.StringToData(data);
         if (null != result )
         {
+			Debug.Log("null != result :");
             if(0 != result.GetInt("code"))
             {
+				Debug.Log("AcitonCreatAccount:");
                 AcitonCreatAccount();
             }
             else
             {
+				Debug.Log("localUserData is ///////:"+ U3DTypeSDK.Instance.GetUserData().DataToString());
+				if (null == localUserData) 
+				{
+					localUserData = U3DTypeSDK.Instance.GetUserData ();
+				}
                 localUserData.SetData(U3DTypeAttName.USER_ID, result.GetData("uid"));
 				localUserData.SetData(U3DTypeAttName.USER_TOKEN, result.GetData("token"));
 
@@ -653,10 +663,12 @@ public class MainScene : MonoBehaviour
 				localUserData.SetData(U3DTypeAttName.ROLE_CREATE_TIME,"1234567890");
 				localUserData.SetData(U3DTypeAttName.ROLE_LEVELUP_TIME,"2345678901");
 				localUserData.SetData(U3DTypeAttName.ZONE_ID,"zone_1");
-				localUserData.SetData(U3DTypeAttName.SERVER_ID,"server_1");
+				localUserData.SetData(U3DTypeAttName.SERVER_ID,"1");
 				localUserData.SetData(U3DTypeAttName.SERVER_NAME,"server_name");
 				localUserData.SetData(U3DTypeAttName.EXTRA,"1");
 				//end
+				U3DTypeSDK.Instance.UpdatePlayerInfo();
+				Debug.Log("UpdatePlayerInfo is ///////:"+ U3DTypeSDK.Instance.GetUserData().DataToString());
 
 				localUserData.attMap()["data"] = result.attMap()["data"];
 
@@ -667,6 +679,11 @@ public class MainScene : MonoBehaviour
                     userBalance = tempBalance;
                 }
                 messageStr = "id " + result.GetData("uid") + "update余额 " + userBalance;
+
+//				U3DTypeSDK.Instance.GetUserData() ;
+//				U3DTypeSDK.Instance.UpdatePlayerInfo();
+
+				Debug.Log("U3DTypeSDK.Instance.GetUserData() is :"+ U3DTypeSDK.Instance.GetUserData().DataToString());
             }
         }
     }
